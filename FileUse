@@ -1,0 +1,35 @@
+package org.optimia.scanaps.intfs;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.function.BiFunction;
+
+public interface FileUse extends Functional {
+
+    /**
+     * Almacenar un objeto (java) con el nombre asignado en la ruta
+     */
+    TriFunctionIOException<Boolean,String,String, Object> guardarObjeto = (ruta, nombre, objeto) ->{
+        new ObjectOutputStream(new FileOutputStream(new File(ruta, nombre))).writeObject(objeto);
+        return true;
+    };
+
+    /**
+     * Recoje el objeto almacenado con el nombre en la ruta
+     */
+    BiFunctionIOException<Object,String,String> cargarObjeto = (ruta, nombre) -> new ObjectInputStream(new FileInputStream(new File(ruta, nombre))).readObject();
+
+    /**
+     * Pregunta si existe el archivo almacenado con el nombre en la ruta
+     */
+    BiFunction<String,String,Boolean> existeArchivo = (ruta,nombre) ->  new File(ruta, nombre).exists();
+
+    /**
+     * Elimina el archivo almacenado con el nombre en la ruta
+     */
+    BiFunction<String,String,Boolean> eliminaArchivo = (ruta,nombre) -> new File(ruta,nombre).delete();
+
+}

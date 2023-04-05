@@ -45,3 +45,11 @@ public interface LoadImgFromUrl {
      * Asigna la imagen descargada del url en el drawable
      */
     BiConsumer<ImageView, Drawable> setImageViewDrawable = (iv, dr) -> iv.setImageBitmap(((BitmapDrawable) dr).getBitmap());
+    
+     /**
+     * retorna una image drawable compuesta por un gradiente de dos colores de arriba hacia abajo
+     */
+    Function<int[], GradientDrawable> getGradiente = (colores) -> new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colores);
+
+    
+    
